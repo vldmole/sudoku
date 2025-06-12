@@ -1,4 +1,5 @@
-import java.io.BufferedReader;
+package sudoku;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
