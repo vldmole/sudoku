@@ -1,4 +1,4 @@
-package sudoku.tui;
+package sudoku.ui.text;
 public final class BoardTemplate {
     private BoardTemplate(){
         //no instances

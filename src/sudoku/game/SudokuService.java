@@ -1,4 +1,4 @@
-package sudoku;
+package sudoku.game;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-public class SudokuControl {
+public class SudokuService {
 
     SudokuModel sudokuModel;
 
@@ -44,7 +44,15 @@ public class SudokuControl {
         return sudokuModel.numberOfColumns();
     }
 
-    public void putNumber(int lin, int col, int value) {
+    public void putNumber(int lin, int col, int value) throws SudokuInvalidValueException, 
+                                                              SudokuRepeatedLineValueException {
+        
+        if(!sudokuModel.isValid(value))
+            throw new SudokuInvalidValueException("Invalid Value: "+ value);
+            
+        if(sudokuModel.isPresentAtLine(lin, value))
+            throw new SudokuRepeatedLineValueException("invalid value '" + value + "'");
+
         sudokuModel.setValue(lin, col, value);
     }
 
@@ -54,5 +62,13 @@ public class SudokuControl {
 
     public String getSudokuTextView() {
         return sudokuModel.toString();
+    }
+
+    public int getValue(int lin, int col) {
+        return sudokuModel.getValue(lin, col);
+    }
+
+    public boolean isFixed(int lin, int col) {
+        return sudokuModel.isFixed(lin, col);
     }
 }

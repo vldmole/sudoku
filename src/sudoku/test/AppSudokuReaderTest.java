@@ -1,8 +1,8 @@
 package sudoku.test;
 import java.net.URL;
 
-import sudoku.SudokuModel;
-import sudoku.SudokuReader;
+import sudoku.game.SudokuModel;
+import sudoku.game.SudokuReader;
 
 
 public class AppSudokuReaderTest {

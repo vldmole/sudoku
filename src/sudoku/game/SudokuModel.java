@@ -1,9 +1,9 @@
-package sudoku;
+package sudoku.game;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import sudoku.tui.BoardTemplate;
+import sudoku.ui.text.BoardTemplate;
 
 
 public class SudokuModel {

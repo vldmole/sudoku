@@ -1,8 +1,9 @@
-package sudoku.tui;
+package sudoku.ui.text;
 import java.util.Scanner;
 
+import sudoku.game.SudokuControl;
+
 import java.awt.*;
-import sudoku.SudokuControl;
 
 public class SudokuTextUI {
 

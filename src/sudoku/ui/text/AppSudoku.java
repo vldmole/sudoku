@@ -1,6 +1,6 @@
-package sudoku.tui;
+package sudoku.ui.text;
 
-import sudoku.SudokuControl;
+import sudoku.game.SudokuControl;
 
 public class AppSudoku {
 
