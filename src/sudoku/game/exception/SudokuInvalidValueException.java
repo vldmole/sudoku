@@ -1,4 +1,4 @@
-package sudoku.game;
+package sudoku.game.exception;
 
 public class SudokuInvalidValueException extends SudokuException{
 

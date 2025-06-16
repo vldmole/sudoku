@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import sudoku.game.exception.SudokuInvalidValueException;
+import sudoku.game.exception.SudokuRepeatedLineValueException;
+
 public class SudokuService {
 
     SudokuModel sudokuModel;

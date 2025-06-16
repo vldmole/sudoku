@@ -31,14 +31,6 @@ public class SudokuModel {
 
         if(isFixed(lin,col))
             throw new RuntimeException("Can't set a fixed cell!");
-        
-        for(int current : matrix[lin])
-            if(current != 0 && current == value)
-                throw new RuntimeException("invalid value '" + value + "'");
-        
-        for(int[] line : matrix)
-            if(line[col] != 0 && line[col] == value)
-                throw new RuntimeException("invalid value '" + value + "'");
 
         matrix[lin][col] = value;
     }
@@ -80,6 +72,22 @@ public class SudokuModel {
         return false;
     }
 
+    public boolean isPresentAtLine(int lin, int value) {
+        
+        for(int current : matrix[lin])
+            if(current == value)
+                return true;
+        return false;
+    }
+
+    public boolean isPresentAltColumn(int column, int value){
+
+        for(int[] line : matrix)
+            if(line[column] == value)
+                return true;
+        return false;
+    }
+
     public void forEach(Consumer<Integer> consumer){
 
         for(int[] line : matrix)
@@ -94,4 +102,6 @@ public class SudokuModel {
 
         return String.format(BoardTemplate.TEMPLATE_9_9, values.toArray());
     }
+
+   
 }
