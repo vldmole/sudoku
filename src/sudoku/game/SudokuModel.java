@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 import sudoku.ui.text.BoardTemplate;
 
 
-public class SudokuModel {
+public class SudokuModel implements ReadOnlySudokuModel{
 
     int[][] matrix = null;
     boolean[][] fixedMatrix = null;
@@ -19,10 +19,12 @@ public class SudokuModel {
         reset();
     }
 
+    @Override
     public int numberOfLines() {
         return matrix.length;
     }
 
+    @Override
     public int numberOfColumns() {
         return matrix[0].length;
     }
@@ -35,7 +37,8 @@ public class SudokuModel {
         matrix[lin][col] = value;
     }
 
-    public Integer getValue(int lin, int col){
+    @Override
+    public int getValue(int lin, int col){
         return matrix[lin][col];
     }
 
@@ -43,6 +46,7 @@ public class SudokuModel {
         fixedMatrix[lin][col] = true;
     }
     
+    @Override
     public boolean isFixed(int lin, int col){
         return fixedMatrix[lin][col];
     }
@@ -58,10 +62,12 @@ public class SudokuModel {
         }
     }
 
+    @Override
     public boolean isValid(int value){
         return (value > 0 && value <= matrix.length);
     }
     
+    @Override
     public boolean haveBlank(){
 
         for(int[] line : matrix)
@@ -72,6 +78,7 @@ public class SudokuModel {
         return false;
     }
 
+    @Override
     public boolean isPresentAtLine(int lin, int value) {
         
         for(int current : matrix[lin])
@@ -80,6 +87,7 @@ public class SudokuModel {
         return false;
     }
 
+    @Override
     public boolean isPresentAltColumn(int column, int value){
 
         for(int[] line : matrix)
@@ -88,6 +96,7 @@ public class SudokuModel {
         return false;
     }
 
+    @Override
     public void forEach(Consumer<Integer> consumer){
 
         for(int[] line : matrix)
@@ -95,6 +104,7 @@ public class SudokuModel {
                 consumer.accept(val);
     }
 
+    @Override
     public String toString(){
 
         List<String> values = new ArrayList<>();
@@ -102,6 +112,4 @@ public class SudokuModel {
 
         return String.format(BoardTemplate.TEMPLATE_9_9, values.toArray());
     }
-
-   
 }
