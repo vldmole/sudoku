@@ -14,9 +14,11 @@ import javax.swing.border.EtchedBorder;
 
 public class SudokuMainWindow extends JFrame{
 
-    private JButton btnNew;
-    private JButton btnReset;
+    public final SudokuTable sudokuTable;
+    public final JButton btnNew;
+    public final JButton btnReset;
 
+    
     public SudokuMainWindow(String sudokuTitle, int sudokuNumber){
         super(sudokuTitle);
 
@@ -24,7 +26,7 @@ public class SudokuMainWindow extends JFrame{
         panel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
         super.setContentPane(panel);
 
-        SudokuTable sudokuTable = new SudokuTable(30, 30, sudokuNumber);
+        sudokuTable = new SudokuTable(30, 30, sudokuNumber);
         panel.add(sudokuTable, BorderLayout.CENTER);
 
         btnNew = new JButton("New Sudoku");

@@ -51,6 +51,7 @@ public class SudokuTable extends JPanel{
                 jtf.setText( value == 0 ? "" : ""+value);
 
                 jtf.setEditable(!sudokuModel.isFixed(lin, col));
+                jtf.setFocusable(!sudokuModel.isFixed(lin, col));
             }
         }
     }
@@ -96,7 +97,7 @@ public class SudokuTable extends JPanel{
     }
 
     //---Observable------------------------------------------------------------------
-    public static record SudokuFieldChangeEvent (int line, int column, int oldValue,int newValue){}
+    public static record SudokuFieldChangeEvent (JTextField sudokuField, int line, int column, int oldValue,int newValue){}
 
     private List<Consumer<SudokuFieldChangeEvent>> observers = new ArrayList<>();
 
@@ -118,17 +119,21 @@ public class SudokuTable extends JPanel{
 
             @Override
             public void focusGained(FocusEvent e) {
-                oldText = ((JTextField)e.getComponent()).getText();
+                JTextField field = ((JTextField)e.getComponent());
+                oldText = field.getText();
                 oldText = ("".equals(oldText) ? "0" : oldText);
+                if(field.isEditable())
+                    field.setBackground(Color.WHITE);
             }
 
             @Override
             public void focusLost(FocusEvent e) {
                 try{
-                    newText = ((JTextField)e.getComponent()).getText();
+                    JTextField field = ((JTextField)e.getComponent());
+                    newText = field.getText();
                     newText = ("".equals(newText) ? "0" : newText);
                     SudokuFieldChangeEvent event = new SudokuFieldChangeEvent(
-                        line, column, Integer.parseInt(oldText), Integer.parseInt(newText));
+                        field, line, column, Integer.parseInt(oldText), Integer.parseInt(newText));
                     
                     observers.forEach(observer->observer.accept(event));
                 }

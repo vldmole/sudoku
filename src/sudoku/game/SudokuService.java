@@ -27,6 +27,10 @@ public class SudokuService {
         sudokuModel = (new SudokuReader()).readFromfile(url);
     }
 
+    public ReadOnlySudokuModel getReadOnlySudokuModel(){
+        return (ReadOnlySudokuModel) sudokuModel;
+    }
+
     public void restartSudoku() {
         sudokuModel.reset();
     }
