@@ -8,10 +8,12 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Scanner;
 
+import sudoku.game.exception.SudokuFixedValueException;
+
 
 public class SudokuReader {
 
-    public SudokuModel readFromfile(URL url) throws FileNotFoundException, IOException, URISyntaxException {
+    public SudokuModel readFromfile(URL url) throws FileNotFoundException, IOException, URISyntaxException{
         
         Scanner scanner = new Scanner(new FileReader(new File(url.toURI())));
         int nLin = scanner.nextInt();
@@ -24,8 +26,13 @@ public class SudokuReader {
                 int value = scanner.nextInt();
                 if(value == 0)
                     continue;
-                model.setValue(lin, col, value);
-                model.setFixed(lin, col);
+                try {
+                    model.setValue(lin, col, value);
+                    model.setFixed(lin, col);
+                } catch (SudokuFixedValueException e) {
+                 
+                    e.printStackTrace();
+                }
             }
         }
         scanner.close();

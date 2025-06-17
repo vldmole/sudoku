@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import sudoku.game.exception.SudokuFixedValueException;
 import sudoku.ui.text.BoardTemplate;
 
 
@@ -29,10 +30,10 @@ public class SudokuModel implements ReadOnlySudokuModel{
         return matrix[0].length;
     }
     
-    public void setValue(int lin, int col, int value){
+    public void setValue(int lin, int col, int value) throws SudokuFixedValueException{
 
         if(isFixed(lin,col))
-            throw new RuntimeException("Can't set a fixed cell!");
+            throw new SudokuFixedValueException("Can't set a fixed cell!");
 
         matrix[lin][col] = value;
     }
@@ -52,12 +53,11 @@ public class SudokuModel implements ReadOnlySudokuModel{
     }
 
     public void reset(){
+
         for(int lin=0; lin<matrix.length; lin++){
             for(int col=0; col<matrix[lin].length; col++){
-                if(isFixed(lin, col))
-                    continue;
-
-                setValue(lin, col, 0);
+                if(!isFixed(lin, col))
+                    matrix[lin][col]= 0;
             }
         }
     }

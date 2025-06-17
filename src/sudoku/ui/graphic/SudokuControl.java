@@ -11,8 +11,9 @@ import javax.swing.JOptionPane;
 
 import sudoku.game.ReadOnlySudokuModel;
 import sudoku.game.SudokuService;
+import sudoku.game.exception.SudokuFixedValueException;
 import sudoku.game.exception.SudokuInvalidValueException;
-import sudoku.game.exception.SudokuRepeatedLineValueException;
+import sudoku.game.exception.SudokuRepeatedValueException;
 import sudoku.ui.graphic.SudokuTable.SudokuFieldChangeEvent;
 
 public class SudokuControl {
@@ -61,15 +62,18 @@ public class SudokuControl {
         
         return (event)-> {
             try{
-                if(!event.sudokuField().isEditable() || event.oldValue() == event.newValue())
+                if(!event.sudokuField().isEditable())
+                    return;
+               
+                if ((event.oldValue()==event.newValue()) && event.oldValue()==0)
                     return;
 
                 sudokuService.putNumber(event.line(), event.column(), event.newValue());
             }
-            catch(SudokuInvalidValueException e){
+            catch(SudokuInvalidValueException | SudokuRepeatedValueException e){
                 event.sudokuField().setBackground(Color.RED);
-            } catch (SudokuRepeatedLineValueException e) {
-               event.sudokuField().setBackground(Color.RED);
+            } catch (SudokuFixedValueException e) {
+                e.printStackTrace();
             }
         };
     }

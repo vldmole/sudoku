@@ -43,15 +43,19 @@ public class SudokuTable extends JPanel{
     
     public void initializeFromModel(ReadOnlySudokuModel sudokuModel){
 
+        System.out.println("from model");
         for(int lin=0; lin<sudokuFields.length; lin++){
             for(int col=0; col< sudokuFields[lin].length; col++){
+                
                 JTextField jtf = sudokuFields[lin][col];
+                
+                jtf.setEditable(!sudokuModel.isFixed(lin, col));
+                jtf.setFocusable(!sudokuModel.isFixed(lin, col));
+                
+                jtf.setBackground(jtf.isEditable() ? Color.white : Color.LIGHT_GRAY);
 
                 int value = sudokuModel.getValue(lin, col);
                 jtf.setText( value == 0 ? "" : ""+value);
-
-                jtf.setEditable(!sudokuModel.isFixed(lin, col));
-                jtf.setFocusable(!sudokuModel.isFixed(lin, col));
             }
         }
     }

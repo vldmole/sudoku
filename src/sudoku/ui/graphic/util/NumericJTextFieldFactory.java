@@ -39,8 +39,8 @@ class IntegerDocumentFilter extends DocumentFilter {
 
     @Override
     public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr){
-        
         try {
+            System.out.println("inserting");
             Document doc = fb.getDocument();
             String text = doc.getText(0, offset) + string;
             if(isInteger(text))
@@ -54,10 +54,11 @@ class IntegerDocumentFilter extends DocumentFilter {
     @Override
     public void remove(DocumentFilter.FilterBypass fb, int offset, int length){
         try {
+            System.out.println("removing");
             Document doc = fb.getDocument();
             StringBuffer sb = new StringBuffer(doc.getText(0, doc.getLength()));
             String text = sb.replace(offset, length, "").toString();
-            if(isInteger(text))
+            if("".equals(text) || isInteger(text))
                super.remove(fb, offset, length);
         } 
         catch (BadLocationException e) {
@@ -68,10 +69,11 @@ class IntegerDocumentFilter extends DocumentFilter {
     @Override
     public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs){
         try {
+            System.out.println("replacing");
             Document doc = fb.getDocument();
             StringBuffer sb = new StringBuffer(doc.getText(0, doc.getLength()));
             String newText = sb.replace(offset, length, text).toString();
-            if(isInteger(newText))
+            if("".equals(newText) || isInteger(newText))
                super.replace(fb, offset, length, text, attrs);
         } 
         catch (BadLocationException e) {

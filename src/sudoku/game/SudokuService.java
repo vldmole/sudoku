@@ -6,8 +6,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import sudoku.game.exception.SudokuFixedValueException;
 import sudoku.game.exception.SudokuInvalidValueException;
-import sudoku.game.exception.SudokuRepeatedLineValueException;
+import sudoku.game.exception.SudokuRepeatedValueException;
 
 public class SudokuService {
 
@@ -52,13 +53,17 @@ public class SudokuService {
     }
 
     public void putNumber(int lin, int col, int value) throws SudokuInvalidValueException, 
-                                                              SudokuRepeatedLineValueException {
+                                                              SudokuRepeatedValueException,
+                                                              SudokuFixedValueException {
         
         if(!sudokuModel.isValid(value))
             throw new SudokuInvalidValueException("Invalid Value: "+ value);
             
         if(sudokuModel.isPresentAtLine(lin, value))
-            throw new SudokuRepeatedLineValueException("invalid value '" + value + "'");
+            throw new SudokuRepeatedValueException("invalid repeated line value '" + value + "'");
+
+        if(sudokuModel.isPresentAltColumn(col, value))
+            throw new SudokuRepeatedValueException("Invalid repeated column value '" + value + "'");
 
         sudokuModel.setValue(lin, col, value);
     }

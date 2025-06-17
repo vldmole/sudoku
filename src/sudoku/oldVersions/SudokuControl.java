@@ -1,10 +1,13 @@
-package sudoku.game;
+package sudoku.oldVersions;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+
+import sudoku.game.SudokuModel;
+import sudoku.game.SudokuReader;
 
 public class SudokuControl {
 

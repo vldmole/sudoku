@@ -1,18 +1,21 @@
 package sudoku.ui.text;
 import java.util.Scanner;
 
-import sudoku.game.SudokuControl;
+import sudoku.game.SudokuService;
+import sudoku.game.exception.SudokuFixedValueException;
+import sudoku.game.exception.SudokuInvalidValueException;
+import sudoku.game.exception.SudokuRepeatedValueException;
 
 import java.awt.*;
 
 public class SudokuTextUI {
 
-    SudokuControl sudokuControl = null;
+    SudokuService sudokuControl = null;
     Scanner scanner = new Scanner(System.in);
 
-    public SudokuTextUI(SudokuControl sudokuControl) {
+    public SudokuTextUI(SudokuService control) {
         
-        this.sudokuControl = sudokuControl;
+        this.sudokuControl = control;
         
         startNewSudoku();
     }
@@ -78,7 +81,7 @@ public class SudokuTextUI {
         }
     }
 
-    private void putNumber() {
+    private void putNumber() throws SudokuInvalidValueException, SudokuRepeatedValueException, SudokuFixedValueException {
 
         System.out.println("Adicionar um número");
         int lin = readInt("Linha:", 0, sudokuControl.numberOfLines());
