@@ -118,16 +118,17 @@ public class SudokuTable extends JPanel{
         return new FocusListener(){
             int line = lin;
             int column = col;
-            String oldText = "0";
+            String oldText = "";
             String newText = "";
 
             @Override
             public void focusGained(FocusEvent e) {
+
                 JTextField field = ((JTextField)e.getComponent());
+                field.setBackground(Color.WHITE);
+                
                 oldText = field.getText();
                 oldText = ("".equals(oldText) ? "0" : oldText);
-                if(field.isEditable())
-                    field.setBackground(Color.WHITE);
             }
 
             @Override
@@ -139,6 +140,7 @@ public class SudokuTable extends JPanel{
                     SudokuFieldChangeEvent event = new SudokuFieldChangeEvent(
                         field, line, column, Integer.parseInt(oldText), Integer.parseInt(newText));
                     
+                  //  oldText = newText;
                     observers.forEach(observer->observer.accept(event));
                 }
                 catch(NumberFormatException nfe){

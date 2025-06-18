@@ -8,6 +8,7 @@ import java.net.URL;
 
 import sudoku.game.SudokuModel;
 import sudoku.game.SudokuReader;
+import sudoku.game.exception.SudokuFixedValueException;
 
 public class SudokuControl {
 
@@ -47,11 +48,11 @@ public class SudokuControl {
         return sudokuModel.numberOfColumns();
     }
 
-    public void putNumber(int lin, int col, int value) {
+    public void putNumber(int lin, int col, int value) throws SudokuFixedValueException {
         sudokuModel.setValue(lin, col, value);
     }
 
-    public void removeNumber(int lin, int col) {
+    public void removeNumber(int lin, int col) throws SudokuFixedValueException {
         sudokuModel.setValue(lin, col, 0);
     }
 

@@ -55,20 +55,25 @@ public class SudokuService {
     public void putNumber(int lin, int col, int value) throws SudokuInvalidValueException, 
                                                               SudokuRepeatedValueException,
                                                               SudokuFixedValueException {
-        
+        if(value == sudokuModel.getValue(lin, col))
+            return;
+
         if(!sudokuModel.isValid(value))
             throw new SudokuInvalidValueException("Invalid Value: "+ value);
             
-        if(sudokuModel.isPresentAtLine(lin, value))
+        if(value !=0 && sudokuModel.isPresentAtLine(lin, value))
             throw new SudokuRepeatedValueException("invalid repeated line value '" + value + "'");
 
-        if(sudokuModel.isPresentAltColumn(col, value))
+        if(value !=0 && sudokuModel.isPresentAltColumn(col, value) )
             throw new SudokuRepeatedValueException("Invalid repeated column value '" + value + "'");
+
+        if(value !=0 && sudokuModel.isPresentAtSector(lin, col, value))
+            throw new SudokuRepeatedValueException("Invalid repeated sector value '" + value + "'");                 
 
         sudokuModel.setValue(lin, col, value);
     }
 
-    public void removeNumber(int lin, int col) {
+    public void removeNumber(int lin, int col) throws SudokuFixedValueException {
         sudokuModel.setValue(lin, col, 0);
     }
 

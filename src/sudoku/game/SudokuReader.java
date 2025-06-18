@@ -18,8 +18,9 @@ public class SudokuReader {
         Scanner scanner = new Scanner(new FileReader(new File(url.toURI())));
         int nLin = scanner.nextInt();
         int nCol = scanner.nextInt();
+        int sudokuNumber = nLin;
         
-        SudokuModel model = new SudokuModel(nLin, nCol);
+        SudokuModel model = new SudokuModel(sudokuNumber);
         
         for(int lin=0; lin<nLin; lin++){
             for(int col=0; col<nCol; col++){

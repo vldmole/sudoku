@@ -67,7 +67,7 @@ public class SudokuControl {
                
                 if ((event.oldValue()==event.newValue()) && event.oldValue()==0)
                     return;
-
+                    
                 sudokuService.putNumber(event.line(), event.column(), event.newValue());
             }
             catch(SudokuInvalidValueException | SudokuRepeatedValueException e){

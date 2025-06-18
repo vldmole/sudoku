@@ -11,12 +11,13 @@ public class SudokuModel implements ReadOnlySudokuModel{
 
     int[][] matrix = null;
     boolean[][] fixedMatrix = null;
+    int sectorSize;
 
-    public SudokuModel(int nLin, int nCol){
+    public SudokuModel(int sudokuNumber){
 
-        matrix = new int[nLin][nCol];
-        fixedMatrix = new boolean[nLin][nCol];
-
+        matrix = new int[sudokuNumber][sudokuNumber];
+        fixedMatrix = new boolean[sudokuNumber][sudokuNumber];
+        sectorSize = (int) Math.sqrt(sudokuNumber);
         reset();
     }
 
@@ -64,7 +65,7 @@ public class SudokuModel implements ReadOnlySudokuModel{
 
     @Override
     public boolean isValid(int value){
-        return (value > 0 && value <= matrix.length);
+        return (value >= 0 && value <= matrix.length);
     }
     
     @Override
@@ -111,5 +112,17 @@ public class SudokuModel implements ReadOnlySudokuModel{
         this.forEach(val -> values.add( val == 0 ? " " : ""+val));
 
         return String.format(BoardTemplate.TEMPLATE_9_9, values.toArray());
+    }
+
+    public boolean isPresentAtSector(int lin, int col, int value) {
+        int sectorLin = 0 + (lin / sectorSize);
+        int sectorCol = 0 + (col / sectorSize);
+        int[][] sectorValues = new int[sectorSize][sectorSize];
+
+        for(int l=0; l<sectorValues.length; l++)
+            for(int c=0; c<sectorValues[l].length; c++)
+                if(value == matrix[sectorLin * sectorSize + l][sectorCol * sectorSize + c])
+                    return true;
+        return false;            
     }
 }
